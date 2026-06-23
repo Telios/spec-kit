@@ -1,5 +1,5 @@
 ---
-description: Execute the implementation planning workflow using the plan template to generate design artifacts.
+description: Execute the implementation planning workflow: grill the HOW decisions, generate design artifacts, and author ADRs for load-bearing decisions.
 handoffs: 
   - label: Create Tasks
     agent: speckit.tasks
@@ -59,16 +59,21 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 1. **Setup**: Run `{SCRIPT}` from repo root and parse JSON for FEATURE_SPEC, IMPL_PLAN, SPECS_DIR, BRANCH. For single quotes in args like "I'm Groot", use escape syntax: e.g 'I'\''m Groot' (or double-quote if possible: "I'm Groot").
 
-2. **Load context**: Read FEATURE_SPEC and `/memory/constitution.md`. Load IMPL_PLAN template (already copied).
+2. **Load context**: Read FEATURE_SPEC and `/memory/constitution.md`. Load IMPL_PLAN template (already copied). Also load the grilling protocol and ADR format for this phase:
+   - `/templates/grilling-protocol.md` — at this altitude you grill the **HOW** (architecture, technology, trade-offs).
+   - `/templates/adr-format.md` — the ADR format and the test for what is ADR-worthy.
+   - The spec's `## Decisions for Planning` section — the open HOW topics parked by specify/clarify.
 
 3. **Execute plan workflow**: Follow the structure in IMPL_PLAN template to:
    - Fill Technical Context (mark unknowns as "NEEDS CLARIFICATION")
    - Fill Constitution Check section from constitution
    - Evaluate gates (ERROR if violations unjustified)
+   - **Grill the HOW**: per `grilling-protocol.md`, interview the engineer (one question at a time, recommending an answer, exploring the codebase first) to resolve each open topic in `## Decisions for Planning` plus any Technical Context unknowns.
    - Phase 0: Generate research.md (resolve all NEEDS CLARIFICATION)
+   - **Author ADRs**: for each resolved load-bearing decision (hard to reverse, surprising, real trade-off), write an ADR into the controlling context's ADR directory (`docs/adr/`, or the context's own ADR dir in a multi-context repo) per `adr-format.md`. The ADR is the durable record; link it to `research.md` rather than duplicating the analysis. Once recorded, the corresponding entry in the spec's `## Decisions for Planning` is resolved.
    - Phase 1: Generate data-model.md, contracts/, quickstart.md
    - Phase 1: Update agent context by running the agent script
-   - Re-evaluate Constitution Check post-design
+   - Re-evaluate Constitution Check post-design (every load-bearing decision carries an ADR)
 
 ## Mandatory Post-Execution Hooks
 
@@ -105,7 +110,7 @@ Check if `.specify/extensions.yml` exists in the project root.
 
 ## Completion Report
 
-Command ends after Phase 2 planning. Report branch, IMPL_PLAN path, and generated artifacts.
+Command ends after Phase 2 planning. Report branch, IMPL_PLAN path, generated artifacts, and any ADRs authored (with paths). Note any `## Decisions for Planning` topics resolved.
 
 ## Phases
 
@@ -130,7 +135,9 @@ Command ends after Phase 2 planning. Report branch, IMPL_PLAN path, and generate
    - Rationale: [why chosen]
    - Alternatives considered: [what else evaluated]
 
-**Output**: research.md with all NEEDS CLARIFICATION resolved
+4. **Author ADRs** for the load-bearing subset of these decisions (per `adr-format.md`), and for every open topic from the spec's `## Decisions for Planning`. Write each into the controlling context's ADR directory; link it to `research.md`.
+
+**Output**: research.md with all NEEDS CLARIFICATION resolved, plus ADRs for load-bearing decisions
 
 ### Phase 1: Design & Contracts
 
@@ -167,5 +174,6 @@ Command ends after Phase 2 planning. Report branch, IMPL_PLAN path, and generate
 ## Done When
 
 - [ ] Plan workflow executed and design artifacts generated
+- [ ] HOW decisions grilled; ADRs authored for load-bearing decisions and `## Decisions for Planning` topics resolved
 - [ ] Extension hooks dispatched or skipped according to the rules in Mandatory Post-Execution Hooks above
-- [ ] Completion reported to user with branch, plan path, and generated artifacts
+- [ ] Completion reported to user with branch, plan path, generated artifacts, and ADRs authored

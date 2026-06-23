@@ -35,6 +35,10 @@ packages = ["src/specify_cli"]
 "templates/spec-template.md" = "specify_cli/core_pack/templates/spec-template.md"
 "templates/tasks-template.md" = "specify_cli/core_pack/templates/tasks-template.md"
 "templates/vscode-settings.json" = "specify_cli/core_pack/templates/vscode-settings.json"
+# Grilling reference docs (loaded by the specify/clarify/plan commands; shipped to .specify/templates/)
+"templates/grilling-protocol.md" = "specify_cli/core_pack/templates/grilling-protocol.md"
+"templates/context-format.md" = "specify_cli/core_pack/templates/context-format.md"
+"templates/adr-format.md" = "specify_cli/core_pack/templates/adr-format.md"
 # Command templates
 "templates/commands" = "specify_cli/core_pack/commands"
 "scripts/bash" = "specify_cli/core_pack/scripts/bash"

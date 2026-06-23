@@ -129,3 +129,25 @@
 - [Assumption about scope boundaries, e.g., "Mobile support is out of scope for v1"]
 - [Assumption about data/environment, e.g., "Existing authentication system will be reused"]
 - [Dependency on existing system/service, e.g., "Requires access to the existing user profile API"]
+
+## Decisions for Planning *(optional)*
+
+<!--
+  Parking lot for ADR-worthy decisions surfaced during the specify/clarify grilling.
+  These are HOW decisions (architecture, technology, trade-offs) that belong to the plan
+  command, NOT to this spec. Record them as OPEN TOPICS, not resolved choices, so this
+  spec stays implementation-free. The plan command grills each to a resolution and
+  authors the ADR. Remove this section if no such decisions came up.
+-->
+
+- [Open topic, e.g., "How are partial cancellations represented? (hard to reverse — defer to plan)"]
+
+## Domain Language
+
+<!--
+  Domain terms used in this spec are defined in the controlling context's CONTEXT.md
+  (controlled vocabulary), NOT redefined here. The specify/clarify grilling keeps
+  CONTEXT.md current. Link to it; do not duplicate it.
+-->
+
+- Glossary: [CONTEXT.md](../../CONTEXT.md) (or the relevant context's `CONTEXT.md`)
