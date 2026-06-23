@@ -99,7 +99,20 @@ Follow this execution flow:
 
 7. Write the completed constitution back to `.specify/memory/constitution.md` (overwrite).
 
-8. Output a final summary to the user with:
+8. **Reference the constitution in the agent context file** (do this on EVERY invocation — for new and already-installed projects alike):
+   - Ensure `__CONTEXT_FILE__` contains a stable `## Project Constitution` section that points to `.specify/memory/constitution.md`, so every agent session is reminded the constitution is binding.
+   - If a `## Project Constitution` section already exists, refresh it in place (e.g. update the version) — do not add a duplicate. If it is absent, insert it near the top (after the title/overview, before other top-level sections).
+   - Keep this section **outside** the `<!-- SPECKIT START -->` / `<!-- SPECKIT END -->` markers — that block is overwritten by other commands.
+   - If `__CONTEXT_FILE__` does not exist yet, create it with this section.
+   - Content (fill in the version you just set):
+
+     ```markdown
+     ## Project Constitution
+
+     This project is governed by `.specify/memory/constitution.md` (vX.Y.Z). Its principles are binding on all work, not just Spec Kit flows. Read it before planning or making non-trivial changes; surface conflicts as proposed amendments rather than silently overriding.
+     ```
+
+9. Output a final summary to the user with:
    - New version and bump rationale.
    - Any files flagged for manual follow-up.
    - Suggested commit message (e.g., `docs: amend constitution to vX.Y.Z (principle additions + governance update)`).
